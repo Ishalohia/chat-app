@@ -32,11 +32,17 @@ const autoscroll = () => {
 
   // How far have I scrolled?
   const scrollOffset = $messages.scrollTop + visibleHeight;
-
   if (containerHeight - newMessageHeight <= scrollOffset) {
     $messages.scrollTop = $messages.scrollHeight;
   }
 };
+
+//Leaving room
+$leaveBtn.addEventListener("click", () => {
+  socket.emit("disconnect");
+  window.history.back();
+});
+
 
 socket.on("message", message => {
   const html = Mustache.render(messageTemplate, {
